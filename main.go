@@ -16,7 +16,9 @@ func registerHandlers(mux *http.ServeMux) {
 }
 
 func runCommandHandler() {
-	print("command run")
+	server := http.NewServeMux()
+	registerHandlers(server)
+	http.ListenAndServe(":8080", server)
 }
 
 func configCommandHandler() {
