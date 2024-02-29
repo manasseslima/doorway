@@ -1,25 +1,36 @@
 package main
 
 import (
-	"encoding/json"
 	"net/http"
+	"github.com/manasseslima/doorway/clio"
 )
 
-func mainHandler(
-	rw http.ResponseWriter,
-	r *http.Request,
-) {
-	data := map[string]string{
-		"nome": "Manasses Lima",
-		"cpf": "03518446436",
-		"tel": "11984336425",
-	}
-	res := json.Marshal()
-	rw.Write([]byte(res))
+func loadConfigs() {
+
+}
+
+func registerHandlers(mux *http.ServeMux) {
+	mux.HandleFunc("/", MainHandler)
+	mux.HandleFunc("/login", LoginHandler)
+	mux.HandleFunc("/logout", LogoutHandler)
+}
+
+func runCommandHandler() {
+	print("command run")
+}
+
+func configCommandHandler() {
+	print("command config")
+}
+
+func createApplication() clio.App {
+	app := clio.NewApp("doorway")
+	app.AddCmd("run", runCommandHandler)
+	app.AddCmd("config", configCommandHandler)
+	return app
 }
 
 func main() {
-	mux := http.NewServeMux()
-	mux.HandleFunc("/", mainHandler)
-	http.ListenAndServe(":8080", mux)
+	app := createApplication()
+	app.Run()
 }
