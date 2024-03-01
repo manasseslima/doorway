@@ -5,17 +5,21 @@ import (
 	"strings"
 )
 
+type Params map[string]string
+type Values []string
+type handler func(Params, Values)
+
 // 
 type Command struct {
 	name string
-	handler func()
+	handler handler
 	commands map[string]Command
 	params map[string]string
 	values []string
 }
 
-func newCommand(name string, handler func()) Command {
-	cmd := Command{
+func NewCommand(name string, handler handler) *Command {
+	cmd := &Command{
 		name: name, 
 		handler: handler,
 		commands: map[string]Command{},
@@ -44,26 +48,26 @@ func (cmd *Command) run(args []string) {
 		}
 	}
 	if runme {
-		cmd.handler()
+		cmd.handler(cmd.params, cmd.values)
 	}
 }
 
 // Struct App manages the commands will run.
 type App struct {
 	name string
-	commands map[string]Command
+	commands map[string]*Command
 }
 
 func NewApp(name string) App {
-	app := App{name: name, commands: map[string]Command{} }
+	app := App{name: name, commands: map[string]*Command{} }
 	return app
 }
 
 func (app *App) AddCmd(
 	name string,
-	handler func(),
+	handler handler,
 ) {
-	cmd := newCommand(name, handler)
+	cmd := NewCommand(name, handler)
 	app.commands[cmd.name] = cmd
 }
 

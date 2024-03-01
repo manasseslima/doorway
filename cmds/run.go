@@ -1,8 +1,8 @@
 package cmds
 
-
 import (
 	"net/http"
+	"github.com/manasseslima/doorway/clio"
 	hdl "github.com/manasseslima/doorway/handlers"
 )
 
@@ -12,7 +12,7 @@ func registerHandlers(mux *http.ServeMux) {
 	mux.HandleFunc("/logout", hdl.LogoutHandler)
 }
 
-func RunCommandHandler() {
+func RunCommandHandler(params clio.Params, values clio.Values) {
 	server := http.NewServeMux()
 	registerHandlers(server)
 	http.ListenAndServe(":8080", server)
