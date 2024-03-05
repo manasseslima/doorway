@@ -62,7 +62,15 @@ func MainHandler(
 	ept := srv.Endpoints[sd.Endpoint]
 	url := fmt.Sprintf("%s%s%s", srv.Url, ept.Path, sd.Remaining)
 	res := requestService(url, r.Method, r.Body, trans)
+	rw.Header().Add("DOORWAY-TRANSACTION", trans.id.String())
+	for k, v := range res.Header {
+		rw.Header().Add(k, v[0])
+	}
 	defer res.Body.Close()
+	body, err := io.ReadAll(res.Body)
+	if err != nil {
+		log.Print("Error to read body data")
+	}
+	rw.Write(body)
 	log.Println(trans.id.String(), res.Status)
-	rw.Write([]byte("main"))
 }
