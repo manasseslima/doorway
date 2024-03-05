@@ -5,6 +5,7 @@ import (
 	"net/http"
 
 	"github.com/manasseslima/doorway/clio"
+	cfg "github.com/manasseslima/doorway/config"
 	hdl "github.com/manasseslima/doorway/handlers"
 )
 
@@ -15,6 +16,7 @@ func registerHandlers(mux *http.ServeMux) {
 }
 
 func RunCommandHandler(params clio.Params, values clio.Values) {
+	cfg.LoadConfig(params["config"])
 	server := http.NewServeMux()
 	registerHandlers(server)
 	addr := fmt.Sprintf(":%s", params["port"])
