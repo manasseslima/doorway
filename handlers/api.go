@@ -63,6 +63,6 @@ func MainHandler(
 	url := fmt.Sprintf("%s%s%s", srv.Url, ept.Path, sd.Remaining)
 	res := requestService(url, r.Method, r.Body, trans)
 	defer res.Body.Close()
-	print(res.Status)
+	log.Println(trans.id.String(), res.Status)
 	rw.Write([]byte("main"))
 }
