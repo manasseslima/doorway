@@ -4,7 +4,7 @@ import (
 	"fmt"
 	"net/http"
 
-	"github.com/manasseslima/doorway/clio"
+	"github.com/manasseslima/clio"
 	cfg "github.com/manasseslima/doorway/config"
 	hdl "github.com/manasseslima/doorway/handlers"
 )

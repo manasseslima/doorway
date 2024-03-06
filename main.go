@@ -2,7 +2,7 @@ package main
 
 import (
 	"github.com/manasseslima/doorway/cmds"
-	"github.com/manasseslima/doorway/clio"
+	"github.com/manasseslima/clio"
 )
 
 func createApplication() clio.App {

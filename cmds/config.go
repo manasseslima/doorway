@@ -1,7 +1,7 @@
 package cmds
 
 import (
-	"github.com/manasseslima/doorway/clio"
+	"github.com/manasseslima/clio"
 )
 
 func ConfigCommandHandler(params clio.Params, values clio.Values) {
