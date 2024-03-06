@@ -30,6 +30,7 @@ type Config struct {
 	Prefix string `json:"prefix"`
 	Services map[string]service `json:"services"`
 	Permissions []string `json:"permissions"`
+	SecretKey string `json:"secret-key"`
 }
 
 func LoadConfig(path string) {
