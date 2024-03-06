@@ -18,15 +18,16 @@ type loginToken struct {
 
 
 type responseLogin struct {
+	Fullname string `json:"fullname"`
 	Token string `json:"token"`
 }
 
 
-func generateJwt() string {
+func generateJwt(username string) string {
 	token := jwt.NewWithClaims(
 		jwt.SigningMethodHS256,
 		jwt.MapClaims{
-			"username": "User Test",
+			"username": username,
 			"exp": time.Now().Add(10 * time.Minute).Unix(),
 		},
 	)
@@ -41,8 +42,11 @@ func LoginHandler(
 	rw http.ResponseWriter,
 	r *http.Request,
 ) {
+	username := "usertest"
+	fullName := "User Test"
 	data := responseLogin{
-		Token: generateJwt(),
+		Fullname: fullName,
+		Token: generateJwt(username),
 	}
 	res, err := json.Marshal(data)
 	if err != nil {
