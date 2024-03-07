@@ -7,4 +7,4 @@ require (
 	github.com/google/uuid v1.6.0
 )
 
-require github.com/manasseslima/clio v0.0.0-20240306183605-375824662699 // indirect
+require github.com/manasseslima/clio v0.1.0
