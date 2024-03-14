@@ -30,7 +30,7 @@ type responseError struct {
 	ErroCode string `json:"error-code"`
 }
 
-func extractserviceData(url string, config cfg.Config) serviceData {
+func extractServiceData(url string, config cfg.Config) serviceData {
 	re := regexp.MustCompile(config.Pattern)
 	mv := re.FindStringSubmatch(url)
 	ud := serviceData{Service: "", Version: "", Endpoint: "", Remaining: ""}
@@ -41,6 +41,16 @@ func extractserviceData(url string, config cfg.Config) serviceData {
 		case "endpoint": ud.Endpoint = mv[idx]
 		case "remaining": ud.Remaining = mv[idx]
 		}
+	}
+	return ud
+}
+
+func extractServiceDataFromPath(r *http.Request) serviceData {
+	ud := serviceData{
+		Service: r.PathValue("service"),
+		Endpoint: r.PathValue("endpoint"),
+		Version: r.PathValue("version"),
+		Remaining: r.PathValue(""),
 	}
 	return ud
 }
@@ -98,7 +108,7 @@ func MainHandler(
 		}
 		rw.Write(res)
 	} else {
-		sd := extractserviceData(r.URL.Path, config)
+		sd := extractServiceData(r.URL.Path, config)
 		srv := config.Services[sd.Service]
 		ept := srv.Endpoints[sd.Endpoint]
 		url := fmt.Sprintf("%s%s%s", srv.Url, ept.Path, sd.Remaining)

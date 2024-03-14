@@ -25,9 +25,15 @@ type service struct {
 	Permissions []string `json:"permissions"`
 }
 
+type authorizator struct {
+	Url string `json:"url"`
+	TokenPath string `json:"token-path"`
+}
+
 type Config struct {
 	Pattern string `json:"pattern"`
 	Prefix string `json:"prefix"`
+	Autorizator authorizator `json:"authorizator"`
 	Services map[string]service `json:"services"`
 	Permissions []string `json:"permissions"`
 	SecretKey string `json:"secret-key"`
