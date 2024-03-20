@@ -28,6 +28,7 @@ type service struct {
 type authorizator struct {
 	Url string `json:"url"`
 	TokenPath string `json:"token-path"`
+	PayloadTemplate map[string]any `json:"payload-template"`
 }
 
 type Config struct {

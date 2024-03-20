@@ -5,38 +5,8 @@ import (
 	"log"
 	"net/http"
 	"strconv"
-	"time"
-
-	"github.com/golang-jwt/jwt"
-	cfg "github.com/manasseslima/doorway/config"
+	"github.com/manasseslima/doorway/auth"
 )
-
-
-type loginToken struct {
-	name string
-}
-
-
-type responseLogin struct {
-	Fullname string `json:"fullname"`
-	Token string `json:"token"`
-}
-
-
-func generateJwt(username string) string {
-	token := jwt.NewWithClaims(
-		jwt.SigningMethodHS256,
-		jwt.MapClaims{
-			"username": username,
-			"exp": time.Now().Add(10 * time.Minute).Unix(),
-		},
-	)
-	tokenString, err := token.SignedString([]byte(cfg.Cfg.SecretKey))
-	if err != nil {
-		log.Println("Error to generate login token")
-	}
-	return tokenString
-}
 
 func LoginHandler(
 	rw http.ResponseWriter,
@@ -44,9 +14,9 @@ func LoginHandler(
 ) {
 	username := "usertest"
 	fullName := "User Test"
-	data := responseLogin{
+	data := auth.ResponseLogin{
 		Fullname: fullName,
-		Token: generateJwt(username),
+		Token: auth.GenerateJwt(username),
 	}
 	res, err := json.Marshal(data)
 	if err != nil {
