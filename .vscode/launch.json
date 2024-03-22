@@ -12,7 +12,7 @@
             "program": "${workspaceFolder}",
             "args": [
                 "run",
-                "--port=8080",
+                "--port=8081",
                 "--config=config.json"
             ]
         }
