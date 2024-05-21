@@ -8,9 +8,7 @@ import (
 	"strings"
 )
 
-
 var Cfg Config
-
 
 type endpoint struct {
 	Path string `json:"path"`
@@ -29,6 +27,7 @@ type authorizator struct {
 	Url string `json:"url"`
 	TokenPath string `json:"token-path"`
 	PayloadTemplate map[string]any `json:"payload-template"`
+	ResponseTemplate map[string]string `json:"response-template"`
 }
 
 type Config struct {
