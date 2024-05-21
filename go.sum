@@ -2,5 +2,5 @@ github.com/golang-jwt/jwt v3.2.2+incompatible h1:IfV12K8xAKAnZqdXVzCZ+TOjboZ2keL
 github.com/golang-jwt/jwt v3.2.2+incompatible/go.mod h1:8pz2t5EyA70fFQQSrl6XZXzqecmYZeUEB8OUGHkxJ+I=
 github.com/google/uuid v1.6.0 h1:NIvaJDMOsjHA8n1jAhLSgzrAzy1Hgr+hNrb57e+94F0=
 github.com/google/uuid v1.6.0/go.mod h1:TIyPZe4MgqvfeYDBFedMoGGpEw/LqOeaOT+nhxU+yHo=
-github.com/manasseslima/clio v0.1.4 h1:CahXj1vFgVaiuNNcnAvfVhY5MWFCi0q4zfBhgXw5gY8=
-github.com/manasseslima/clio v0.1.4/go.mod h1:dsifJ+scSGrSXkW9W1sCEhQBqvYKeRM6rKUNSFCEUh8=
+github.com/manasseslima/clio v0.1.5 h1:ghLfYtxt1ApcYxT0sbuv+KFlXDHo/l0S7n4xhlaOrPs=
+github.com/manasseslima/clio v0.1.5/go.mod h1:OgbG0OXyeV2ssMr0JH+C9N2jZ+pofDlMhFOpFp5V2Lg=
