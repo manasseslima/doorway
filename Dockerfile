@@ -2,7 +2,10 @@ FROM golang:1.23-alpine as builder
 
 WORKDIR /app
 
-COPY src/* .
+COPY src/auth ./auth
+COPY src/handlers ./handlers
+COPY src/cmds ./cmds
+COPY src/config ./config
 COPY src/go.mod .
 
 RUN go mod tidy
