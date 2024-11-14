@@ -2,7 +2,7 @@ FROM golang:1.23-alpine as builder
 
 WORKDIR /app
 
-COPY src/  /app
+COPY ./src  /app
 
 RUN go mod tidy
 RUN go build -o ./dway .
