@@ -2,11 +2,11 @@ FROM golang:1.16-alpine as builder
 
 WORKDIR /app
 
-COPY src/ ./src
+COPY src/* .
 COPY src/go.mod .
 
 RUN go mod tidy
-RUN go build -o ./dway ./src  
+RUN go build -o ./dway .
 
 EXPOSE 8080
 
