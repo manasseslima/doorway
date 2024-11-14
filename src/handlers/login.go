@@ -3,9 +3,10 @@ package handlers
 import (
 	"encoding/json"
 	"log"
-	"msl/doorway/auth"
 	"net/http"
 	"strconv"
+
+	"msl.com/doorway/auth"
 )
 
 func LoginHandler(
@@ -16,7 +17,7 @@ func LoginHandler(
 	fullName := "User Test"
 	data := auth.ResponseLogin{
 		Fullname: fullName,
-		Token: auth.GenerateJwt(username),
+		Token:    auth.GenerateJwt(username),
 	}
 	res, err := json.Marshal(data)
 	if err != nil {

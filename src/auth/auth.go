@@ -4,7 +4,7 @@ import (
 	"log"
 	"time"
 
-	cfg "msl/doorway/config"
+	cfg "msl.com/doorway/config"
 
 	"github.com/golang-jwt/jwt"
 )

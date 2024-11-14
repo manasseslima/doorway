@@ -4,8 +4,8 @@ import (
 	"fmt"
 	"net/http"
 
-	cfg "msl/doorway/config"
-	hdl "msl/doorway/handlers"
+	cfg "msl.com/doorway/config"
+	hdl "msl.com/doorway/handlers"
 
 	"github.com/manasseslima/clio"
 )
