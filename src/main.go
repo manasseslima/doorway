@@ -6,7 +6,7 @@ import (
 )
 
 func createApplication() clio.App {
-	app := clio.NewApp("doorway", "An apiwateway application")
+	app := clio.NewApp("doorway", "An apigateway application")
 	app.NewCmd("run", "Run services gateway", cmds.RunCommandHandler)
 	config := clio.NewCommand("config", "Generate and manage config files", cmds.ConfigCommandHandler)
 	app.AddCmd(config)

@@ -11,32 +11,33 @@ import (
 var Cfg Config
 
 type endpoint struct {
-	Path string `json:"path"`
+	Path        string            `json:"path"`
 	Permissions map[string]string `json:"permissions"`
 }
 
 type service struct {
-	Name string `json:"name"`
-	Url string `json:"url"`
-	Health string `json:"health"`
-	Endpoints map[string]endpoint `json:"endpoints"`
-	Permissions []string `json:"permissions"`
+	Name        string              `json:"name"`
+	Url         string              `json:"url"`
+	Health      string              `json:"health"`
+	Endpoints   map[string]endpoint `json:"endpoints"`
+	Permissions []string            `json:"permissions"`
 }
 
 type authorizator struct {
-	Url string `json:"url"`
-	TokenPath string `json:"token-path"`
-	PayloadTemplate map[string]any `json:"payload-template"`
+	Disabled         bool              `json:"disabled"`
+	Url              string            `json:"url"`
+	TokenPath        string            `json:"token-path"`
+	PayloadTemplate  map[string]any    `json:"payload-template"`
 	ResponseTemplate map[string]string `json:"response-template"`
 }
 
 type Config struct {
-	Pattern string `json:"pattern"`
-	Prefix string `json:"prefix"`
-	Autorizator authorizator `json:"authorizator"`
-	Services map[string]service `json:"services"`
-	Permissions []string `json:"permissions"`
-	SecretKey string `json:"secret-key"`
+	Pattern     string             `json:"pattern"`
+	Prefix      string             `json:"prefix"`
+	Autorizator authorizator       `json:"authorizator"`
+	Services    map[string]service `json:"services"`
+	Permissions []string           `json:"permissions"`
+	SecretKey   string             `json:"secret-key"`
 }
 
 func LoadConfig(path string) {
