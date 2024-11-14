@@ -2,7 +2,7 @@ module msl.com/doorway
 
 go 1.22.3
 
-replace msl.com/doorway/auth => ./auth
+replace msl.com/doorway => ./
 
 require (
 	github.com/golang-jwt/jwt v3.2.2+incompatible
