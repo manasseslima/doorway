@@ -7,6 +7,7 @@ COPY src/handlers ./handlers
 COPY src/cmds ./cmds
 COPY src/config ./config
 COPY src/go.mod .
+COPY src/main.go .
 
 RUN go mod tidy
 RUN go build -o ./dway .
