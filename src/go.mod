@@ -1,4 +1,4 @@
-module msl/doorway
+module msl.com/doorway
 
 go 1.22.3
 
