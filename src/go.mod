@@ -1,4 +1,4 @@
-module github.com/manasseslima/doorway
+module msl/doorway
 
 go 1.22.3
 

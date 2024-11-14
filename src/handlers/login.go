@@ -3,9 +3,9 @@ package handlers
 import (
 	"encoding/json"
 	"log"
+	"msl/doorway/auth"
 	"net/http"
 	"strconv"
-	"github.com/manasseslima/doorway/auth"
 )
 
 func LoginHandler(

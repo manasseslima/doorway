@@ -9,9 +9,10 @@ import (
 	"net/http"
 	"regexp"
 
+	auth "msl/doorway/auth"
+	cfg "msl/doorway/config"
+
 	"github.com/google/uuid"
-	auth "github.com/manasseslima/doorway/auth"
-	cfg "github.com/manasseslima/doorway/config"
 	"golang.org/x/exp/maps"
 )
 

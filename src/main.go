@@ -1,7 +1,8 @@
 package main
 
 import (
-	"github.com/manasseslima/doorway/cmds"
+	"msl/doorway/cmds"
+
 	"github.com/manasseslima/clio"
 )
 

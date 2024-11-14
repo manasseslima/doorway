@@ -4,9 +4,10 @@ import (
 	"fmt"
 	"net/http"
 
+	cfg "msl/doorway/config"
+	hdl "msl/doorway/handlers"
+
 	"github.com/manasseslima/clio"
-	cfg "github.com/manasseslima/doorway/config"
-	hdl "github.com/manasseslima/doorway/handlers"
 )
 
 func registerHandlers(mux *http.ServeMux) {

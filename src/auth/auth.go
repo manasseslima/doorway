@@ -4,8 +4,9 @@ import (
 	"log"
 	"time"
 
+	cfg "msl/doorway/config"
+
 	"github.com/golang-jwt/jwt"
-	cfg "github.com/manasseslima/doorway/config"
 )
 
 type loginToken struct {
