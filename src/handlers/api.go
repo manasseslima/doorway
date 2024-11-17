@@ -75,7 +75,7 @@ func requestService(url string, method string, body []byte, headers http.Header,
 	req.Header.Set("DOORWAY-TRANSACTION", trans.id.String())
 	res, err := cli.Do(req)
 	if err != nil {
-		log.Print("Error on requesting on service")
+		log.Printf("Error on requesting on service % %s: %v", method, url, err)
 		return nil
 	}
 	return res
