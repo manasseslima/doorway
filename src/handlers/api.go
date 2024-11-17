@@ -67,6 +67,7 @@ func requestService(url string, method string, body []byte, headers http.Header,
 	req, err := http.NewRequest(method, url, bytes.NewBuffer(body))
 	if err != nil {
 		log.Print("Error to create new request to service")
+		return nil
 	}
 	for _, name := range maps.Keys(headers) {
 		req.Header.Set(name, headers.Get(name))
@@ -75,6 +76,7 @@ func requestService(url string, method string, body []byte, headers http.Header,
 	res, err := cli.Do(req)
 	if err != nil {
 		log.Print("Error on requesting on service")
+		return nil
 	}
 	return res
 }
@@ -112,6 +114,10 @@ func MainHandler(
 		trans := transaction{id: uuid.New()}
 		body, _ := io.ReadAll(r.Body)
 		res := requestService(url, r.Method, body, r.Header, trans)
+		if res == nil {
+			log.Printf("Error on do request to %s", url)
+			return
+		}
 		defer res.Body.Close()
 		rw.Header().Add("DOORWAY-TRANSACTION", trans.id.String())
 		for k, v := range res.Header {
