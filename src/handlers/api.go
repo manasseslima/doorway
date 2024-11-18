@@ -81,6 +81,21 @@ func requestService(url string, method string, body []byte, headers http.Header,
 	return res
 }
 
+func returnError(rw http.ResponseWriter, message string, detail string, code string) {
+	rw.Header().Add("Content-Type", "application/json")
+	rw.WriteHeader(http.StatusForbidden)
+	mess := responseError{
+		Message:  message,
+		Detail:   detail,
+		ErroCode: code,
+	}
+	res, err := json.Marshal(mess)
+	if err != nil {
+		log.Println("Error on try response token validation error.")
+	}
+	rw.Write(res)
+}
+
 func MainHandler(
 	rw http.ResponseWriter,
 	r *http.Request,
@@ -94,18 +109,9 @@ func MainHandler(
 		msgError = err.Error()
 	}
 	if !token.Valid {
-		rw.Header().Add("Content-Type", "application/json")
-		rw.WriteHeader(http.StatusForbidden)
-		mess := responseError{
-			Message:  "Token Invalid.",
-			Detail:   fmt.Sprintf("%s. Please renew token by login", msgError),
-			ErroCode: "0001",
-		}
-		res, err := json.Marshal(mess)
-		if err != nil {
-			log.Println("Error on try response token validation error.")
-		}
-		rw.Write(res)
+		detail := fmt.Sprintf("%s. Please renew token by login", msgError)
+		returnError(rw, "Token Invalid.", detail, "0001")
+		return
 	} else {
 		sd := extractServiceData(r.URL.Path, config)
 		srv := config.Services[sd.Service]
@@ -115,10 +121,12 @@ func MainHandler(
 		body, _ := io.ReadAll(r.Body)
 		res := requestService(url, r.Method, body, r.Header, trans)
 		if res == nil {
-			log.Printf("Error on do request to %s", url)
+			detail := fmt.Sprintf("Error on do request to %s", url)
+			returnError(rw, "Error on do request to service", detail, "0002")
 			return
 		}
 		defer res.Body.Close()
+		rw.WriteHeader(res.StatusCode)
 		rw.Header().Add("DOORWAY-TRANSACTION", trans.id.String())
 		for k, v := range res.Header {
 			rw.Header().Add(k, v[0])
