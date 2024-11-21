@@ -4,4 +4,4 @@ source .env
 sudo docker container stop $DOORWAY_CONTAINER_NAME || true
 sudo docker container rm $DOORWAY_CONTAINER_NAME || true
 sudo docker build -t doorway:latest .
-sudo docker run -d -p 8081:8080 -v $PWD/config:/etc/dway/ --name dway doorway:latest
+sudo docker run -d -p $DOORWAY_SERVER_PORT:8080 -v $PWD/config:/etc/dway/ --name dway doorway:latest
