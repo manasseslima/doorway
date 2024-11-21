@@ -126,7 +126,6 @@ func MainHandler(
 			return
 		}
 		defer res.Body.Close()
-		rw.WriteHeader(res.StatusCode)
 		rw.Header().Add("DOORWAY-TRANSACTION", trans.id.String())
 		for k, v := range res.Header {
 			rw.Header().Add(k, v[0])
@@ -136,6 +135,7 @@ func MainHandler(
 			log.Print("Error to read body data")
 		}
 		rw.Write(body)
+		rw.WriteHeader(res.StatusCode)
 		log.Println(trans.id.String(), res.Status)
 	}
 }
