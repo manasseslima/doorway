@@ -9,4 +9,4 @@ RUN go build -o ./dway .
 
 EXPOSE 8080
 
-CMD ./dway --port=8080 --config=/etc/dway/config.json
+CMD ./dway run --port=8080 --config=/etc/dway/config.json
