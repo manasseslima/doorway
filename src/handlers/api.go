@@ -134,8 +134,8 @@ func MainHandler(
 		if err != nil {
 			log.Print("Error to read body data")
 		}
-		rw.Write(body)
 		rw.WriteHeader(res.StatusCode)
+		rw.Write(body)
 		log.Println(trans.id.String(), res.Status)
 	}
 }
