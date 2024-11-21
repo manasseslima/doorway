@@ -134,8 +134,10 @@ func MainHandler(
 		if err != nil {
 			log.Print("Error to read body data")
 		}
+		if res.StatusCode >= 400 {
+			log.Printf("[%s] Error on do request to %s: %s", trans.id.String(), url, res.Status)
+		}
 		rw.WriteHeader(res.StatusCode)
 		rw.Write(body)
-		log.Println(trans.id.String(), res.Status)
 	}
 }
