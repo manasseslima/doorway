@@ -1,6 +1,8 @@
-!#/bin/bash
+#!/bin/bash
 
 source .env
+git switch $DOORWAY_BRANCH
+git pull origin $DOORWAY_BRANCH
 sudo docker container stop $DOORWAY_CONTAINER_NAME || true
 sudo docker container rm $DOORWAY_CONTAINER_NAME || true
 sudo docker build -t doorway:latest .
