@@ -1,20 +1,18 @@
 package main
 
 import (
-	"msl.com/doorway/cmds"
-
 	"github.com/manasseslima/clio"
+	"msl.com/doorway/cmds"
 )
 
-func createApplication() clio.App {
-	app := clio.NewApp("doorway", "An apigateway application")
+func createCommands(app *clio.App) {
 	app.NewCmd("run", "Run services gateway", cmds.RunCommandHandler)
 	config := clio.NewCommand("config", "Generate and manage config files", cmds.ConfigCommandHandler)
 	app.AddCmd(config)
-	return app
 }
 
 func main() {
-	app := createApplication()
+	app := clio.NewApp("doorway", "An APIGateway application")
+	createCommands(&app)
 	app.Run()
 }

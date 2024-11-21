@@ -24,3 +24,6 @@ go.work
 config.json
 doorway
 .vscode/
+
+# files
+.env
