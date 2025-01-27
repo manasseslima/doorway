@@ -75,7 +75,7 @@ func requestService(url string, method string, body []byte, headers http.Header,
 	req.Header.Set("DOORWAY-TRANSACTION", trans.id.String())
 	res, err := cli.Do(req)
 	if err != nil {
-		log.Printf("Error on requesting on service % %s: %v", method, url, err)
+		log.Printf("Error on requesting on service %s %s: %v", method, url, err)
 		return nil
 	}
 	return res
@@ -116,7 +116,11 @@ func MainHandler(
 		sd := extractServiceData(r.URL.Path, config)
 		srv := config.Services[sd.Service]
 		ept := srv.Endpoints[sd.Endpoint]
-		url := fmt.Sprintf("%s/%s%s", srv.Url, ept.Path, sd.Remaining)
+		query := ""
+		if r.URL.RawQuery != "" {
+			query = "?" + r.URL.RawQuery
+		}
+		url := fmt.Sprintf("%s/%s%s%s", srv.Url, ept.Path, sd.Remaining, query)
 		trans := transaction{id: uuid.New()}
 		body, _ := io.ReadAll(r.Body)
 		res := requestService(url, r.Method, body, r.Header, trans)
@@ -126,20 +130,20 @@ func MainHandler(
 			return
 		}
 		defer res.Body.Close()
-		rw.Header().Add("DOORWAY-TRANSACTION", trans.id.String())
-		for k, v := range res.Header {
-			rw.Header().Add(k, v[0])
-		}
 		body, err = io.ReadAll(res.Body)
 		if err != nil {
 			log.Print("Error to read body data")
 		}
-		if res.StatusCode >= 400 {
-			log.Printf("[%s][Error] Request to %s -> %s: %s", trans.id.String(), r.URL.Path, url, res.Status)
-		} else {
-			log.Printf("[%s][Success] Request to %s -> %s: %s", trans.id.String(), r.URL.Path, url, res.Status)
+		rw.Header().Set("DOORWAY-TRANSACTION", trans.id.String())
+		for k, v := range res.Header {
+			rw.Header().Set(k, v[0])
 		}
 		rw.WriteHeader(res.StatusCode)
 		rw.Write(body)
+		if res.StatusCode >= 400 {
+			log.Printf("[%s][Error] Request %s %s -> %s: %s", trans.id.String(), r.Method, r.URL.Path, url, res.Status)
+		} else {
+			log.Printf("[%s][Success] Request %s %s -> %s: %s", trans.id.String(), r.Method, r.URL.Path, url, res.Status)
+		}
 	}
 }
